@@ -1,0 +1,39 @@
+version: '3.1'
+
+services:
+  db:
+    image: "${SEAT_ADMIN_NAME}/seat-db:1.0.0"
+    build:
+      context: mysql/
+      dockerfile: Dockerfile
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_DATABASE: seat-records
+      MYSQL_USER: whu-lib
+      MYSQL_PASSWORD: Ab12345678..c
+      MYSQL_ROOT_PASSWORD: ${SEAT_DB_ROOT_PASSWD}
+    networks:
+      - network
+  recorder:
+    image: "${SEAT_ADMIN_NAME}/seat-records:1.0.0"
+    build:
+      context: recorder/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:${SEAT_RECORDER_PORT}
+    depends_on: db
+    networks:
+      - network
+  ghauth:
+    image: "${SEAT_ADMIN_NAME}/seat-ghauth:1.0.0"
+    build:
+      context: ghauth/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 80:${SEAT_GHAUTH_PORT}
+
+networks:
+    network: seat-net
