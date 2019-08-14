@@ -7,14 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Install docker-compose
+    - name: Install docker-compose and Build images
+      env:
+        DOCKER_COMPOSE_VERSION: 1.21.1
       run: |
         sudo rm /usr/local/bin/docker-compose
         curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
         chmod +x docker-compose
         sudo mv docker-compose /usr/local/bin
-    - name: Build images
-      run: docker-compose build
+        docker-compose build
     - name: Deploy images
       run: |
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
