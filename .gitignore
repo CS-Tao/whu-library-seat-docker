@@ -4,5 +4,7 @@
 nginx/ssl/*
 # binary
 nginx/assets/*
+# logs
+nginx/logs/*
 # upload folder only
 !.gitkeep

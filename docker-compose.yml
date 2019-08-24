@@ -56,8 +56,9 @@ services:
       - 443:443
     volumes:
       - ./nginx/ssl/:/etc/nginx/ssl/:ro
-      - ./nginx/seat.conf:/etc/nginx/sites-enabled/seat.conf:ro
+      - ./nginx/seat.conf:/etc/nginx/conf.d/seat.conf:ro
       - ./nginx/assets/:/home/seat/assets/
+      - ./nginx/logs/:/var/log/nginx/
     depends_on:
       - recorder
       - ghauth
