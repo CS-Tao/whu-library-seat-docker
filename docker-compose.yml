@@ -28,8 +28,8 @@ services:
       context: recorder/
       dockerfile: Dockerfile
     restart: always
-    ports:
-      - 3001:${SEAT_RECORDER_PORT}
+    # ports:
+    #   - 3001:3001
     depends_on:
       - db
     networks:
@@ -42,8 +42,27 @@ services:
     environment:
       SEAT_GHAUTH_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
     restart: always
+    # ports:
+    #   - 3002:3002
+    networks:
+      - network
+  nginx:
+    image: ${SEAT_ADMIN_NAME}/seat-nginx:1.0.0
+    build:
+      context: nginx/
+      dockerfile: Dockerfile
+    restart: always
     ports:
-      - 3002:${SEAT_GHAUTH_PORT}
+      - 443:443
+    volumes:
+      - ./nginx/ssl/:/etc/nginx/ssl/:ro
+      - ./nginx/seat.conf:/etc/nginx/sites-enabled/seat.conf:ro
+      - ./nginx/assets/:/home/seat/assets/
+    depends_on:
+      - recorder
+      - ghauth
+    networks:
+      - network
 
 volumes:
   seat-db:

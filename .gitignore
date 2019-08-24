@@ -1,1 +1,8 @@
+# enviroment file
 .env
+# ssl certificates
+nginx/ssl/*
+# binary
+nginx/assets/*
+# upload folder only
+!.gitkeep
