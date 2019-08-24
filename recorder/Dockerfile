@@ -1,6 +1,7 @@
 FROM node:8.16.0-slim
 LABEL maintainer="CS-Tao <whucstao@qq.com>" version="1.0.0"
 
+ENV TZ=Asia/Shanghai
 ENV SEAT_RECORDER_URL https://github.com/CS-Tao/whu-library-seat.git
 ENV SEAT_RECORDER_BRANCH usage-records
 
