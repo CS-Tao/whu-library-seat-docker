@@ -1,3 +1,5 @@
+[![Docker Image CI](https://github.com/CS-Tao/whu-library-seat-docker/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/CS-Tao/whu-library-seat-docker/actions)
+[![license](https://img.shields.io/badge/license-MIT-orange.svg)](https://opensource.org/licenses/MIT)
 # whu-library-seat-docker
 
 > 图书馆抢座软件后台服务部署方案
