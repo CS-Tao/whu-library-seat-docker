@@ -34,5 +34,5 @@ jobs:
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
       if: github.ref == 'refs/heads/master'
       run: |
-        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker login docker.pkg.github.com -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
         docker-compose push
