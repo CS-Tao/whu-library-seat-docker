@@ -40,7 +40,7 @@ services:
       context: ghauth/
       dockerfile: Dockerfile
     environment:
-      SEAT_GHAUTH_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
+      WHU_SEAT_CLIENT_SCERET: ${SEAT_GHAUTH_CLIENT_SCERET}
     restart: always
     # ports:
     #   - 3002:3002
