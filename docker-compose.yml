@@ -27,6 +27,8 @@ services:
     build:
       context: recorder/
       dockerfile: Dockerfile
+    environment:
+      DATABASE_HOST: db
     restart: always
     # ports:
     #   - 3001:3001
