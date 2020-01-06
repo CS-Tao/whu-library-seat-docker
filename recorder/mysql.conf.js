@@ -1,5 +1,5 @@
 exports.config={
-  host: "db",
+  host: "{DATABASE_HOST}",
   port: 3306,
   user: "whu-lib",
   password: "Ab12345678..c",

@@ -23,10 +23,12 @@ services:
     networks:
       - network
   recorder:
-    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.0.0
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.0.1
     build:
       context: recorder/
       dockerfile: Dockerfile
+    environment:
+      DATABASE_HOST: db
     restart: always
     # ports:
     #   - 3001:3001

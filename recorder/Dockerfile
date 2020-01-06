@@ -7,9 +7,12 @@ ENV SEAT_RECORDER_BRANCH usage-records
 
 COPY download_scripts.sh ./download_scripts.sh
 COPY mysql.conf.js ./mysql.conf.js
+COPY entrypoint.sh ./entrypoint.sh
 
-RUN chmod +x ./download_scripts.sh && bash ./download_scripts.sh
+RUN chmod +x ./download_scripts.sh /entrypoint.sh && bash ./download_scripts.sh
 
 WORKDIR /root/recorder
+
+ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["node", "bin/www"]
