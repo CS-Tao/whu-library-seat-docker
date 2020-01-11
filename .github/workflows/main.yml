@@ -36,6 +36,7 @@ jobs:
       env:
         SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
+      if: github.ref == 'refs/heads/master'
       run: |
         sed -i "s/docker.pkg.github.com\/cs-tao\/whu-library-seat-docker/cstao/g"
         docker-compose push
