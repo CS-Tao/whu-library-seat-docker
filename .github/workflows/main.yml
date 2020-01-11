@@ -15,7 +15,7 @@ jobs:
         curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
         chmod +x docker-compose
         sudo mv docker-compose /usr/local/bin
-    - name: Build images
+    - name: Build images for github refistry
       env:
         SEAT_ADMIN_NAME: ${{ secrets.SEAT_ADMIN_NAME }}
         SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
@@ -23,16 +23,29 @@ jobs:
         SEAT_GHAUTH_PORT: ${{ secrets.SEAT_GHAUTH_PORT }}
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
       run: docker-compose build
-    - name: Deploy images
+    - name: Deploy images to github registry
       env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        SEAT_ADMIN_NAME: ${{ secrets.SEAT_ADMIN_NAME }}
-        SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
-        SEAT_RECORDER_PORT: ${{ secrets.SEAT_RECORDER_PORT }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SEAT_GHAUTH_PORT: ${{ secrets.SEAT_GHAUTH_PORT }}
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
       if: github.ref == 'refs/heads/master'
       run: |
-        docker login docker.pkg.github.com -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+        docker login docker.pkg.github.com -u CS-Tao -p "$GITHUB_TOKEN"
+        docker-compose push
+    - name: Build images for docker hub
+      env:
+        SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
+        SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
+      run: |
+        sed -i "s/docker.pkg.github.com\/cs-tao\/whu-library-seat-docker/cstao/g"
+        docker-compose push
+        docker-compose build
+    - name: Deploy images to docker hub
+      env:
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
+        SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
+      if: github.ref == 'refs/heads/master'
+      run: |
+        docker login -u cstao -p "$DOCKER_PASSWORD"
         docker-compose push
