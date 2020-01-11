@@ -32,13 +32,18 @@ jobs:
       run: |
         docker login docker.pkg.github.com -u CS-Tao -p "$GITHUB_TOKEN"
         docker-compose push
+
+    - name: Swich to docker hub image builder
+      if: github.ref == 'refs/heads/master'
+      run: |
+        sed -i "s/docker.pkg.github.com\/cs-tao\/whu-library-seat-docker/cstao/g" docker-compose.yml
+
     - name: Build images for docker hub
       env:
         SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
       if: github.ref == 'refs/heads/master'
       run: |
-        sed -i "s/docker.pkg.github.com\/cs-tao\/whu-library-seat-docker/cstao/g"
         docker-compose push
         docker-compose build
     - name: Deploy images to docker hub
