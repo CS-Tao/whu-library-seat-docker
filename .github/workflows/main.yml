@@ -43,9 +43,7 @@ jobs:
         SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
         SEAT_GHAUTH_CLIENT_SCERET: ${{ secrets.SEAT_GHAUTH_CLIENT_SCERET }}
       if: github.ref == 'refs/heads/master'
-      run: |
-        docker-compose push
-        docker-compose build
+      run: docker-compose build
     - name: Deploy images to docker hub
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
