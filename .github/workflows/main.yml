@@ -15,7 +15,7 @@ jobs:
         curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
         chmod +x docker-compose
         sudo mv docker-compose /usr/local/bin
-    - name: Build images for github refistry
+    - name: Build images for github registry
       env:
         SEAT_ADMIN_NAME: ${{ secrets.SEAT_ADMIN_NAME }}
         SEAT_DB_ROOT_PASSWD: ${{ secrets.SEAT_DB_ROOT_PASSWD }}
