@@ -23,7 +23,7 @@ services:
     networks:
       - network
   recorder:
-    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.1.1
+    image: docker.pkg.github.com/cs-tao/whu-library-seat-docker/seat-records:1.1.2
     build:
       context: recorder/
       dockerfile: Dockerfile
