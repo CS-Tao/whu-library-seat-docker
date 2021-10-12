@@ -29,6 +29,7 @@ services:
       dockerfile: Dockerfile
     environment:
       DATABASE_HOST: db
+      ENCRYPT_KEY: ${SEAT_RECORDS_ENCRYPT_KEY}
     restart: always
     # ports:
     #   - 3001:3001
