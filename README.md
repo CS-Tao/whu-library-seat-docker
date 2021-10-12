@@ -38,6 +38,8 @@
     SEAT_DB_ROOT_PASSWD=****
     # 在 GitHub 申请的客户端密钥
     SEAT_GHAUTH_CLIENT_SCERET=****
+    # 数据加密密钥
+    SEAT_RECORDS_ENCRYPT_KEY=****
     ```
 
 1. 拉取镜像
